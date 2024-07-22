@@ -9,7 +9,7 @@ namespace Core.Models.Query.Requests.Sigma {
         public required string Name { get; set; }
         public required string Description { get; set; }
         public required string ImageUrl { get; set; }
-        public required string Image { get; set; }
+        //public required string Image { get; set; }
         public required string AverageWeight { get; set; }
         public required string AverageHeight { get; set; }
         public int Testosterone { get; set; }
