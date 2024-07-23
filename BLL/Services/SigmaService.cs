@@ -48,10 +48,6 @@ public class SigmaService : ISigmaService {
     }
     public async Task<bool> CreateSigma(SigmaCreateRequest request) {
         var sigma = mapper.Map<Sigma>(request);
-        sigma.Types = await typeRepos.GetAllByIds(request.Types);
-        sigma.Weaknesses = await typeRepos.GetAllByIds(request.Weaknesses ?? new());
-        sigma.PrevStep = await repos.GetById(request.PrevStepId ?? 0);
-        sigma.NextStep = await repos.GetById(request.NextStepId ?? 0);
         return await repos.Create(sigma);
     }
     public async Task<bool> EditSigma(SigmaUpdateRequest request) {

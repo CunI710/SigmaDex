@@ -14,8 +14,8 @@ namespace Core.Models.Query.Responses.Sigma {
         public required string AverageHeight { get; set; }
         public int Testosterone { get; set; }
         public int EvolutionLevel { get; set; }
-        public required List<string> Types { get; set; }
-        public List<string>? Weaknesses { get; set; }
+        public required List<SigmaTypeExampleResponse> Types { get; set; }
+        public List<SigmaTypeExampleResponse>? Weaknesses { get; set; }
         public SigmaExampleResponse? NextStep { get; set; }
         public SigmaExampleResponse? PrevStep { get; set; }
     }

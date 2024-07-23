@@ -2,7 +2,7 @@
 using Core.Abstractions.Repositories;
 using Core.Models.BaseModels;
 using DataAccess.Entities;
-using DLL;
+using DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories
@@ -27,7 +27,7 @@ namespace DataAccess.Repositories
             return sigmaType;
         }
         public async Task<List<SigmaType>> Get() {
-            var sigmaTypeEntities = await context.Sigmas.ToListAsync();
+            var sigmaTypeEntities = await context.SigmaTypes.ToListAsync();
             var sigmaTypes = mapper.Map<List<SigmaType>>(sigmaTypeEntities);
             return sigmaTypes;
         }
@@ -47,7 +47,7 @@ namespace DataAccess.Repositories
             }
             sigmaTypeEntity = mapper.Map<SigmaTypeEntity>(sigmaType);
 
-            await context.SigmaTypes.AddAsync(sigmaTypeEntity);
+            context.SigmaTypes.Attach(sigmaTypeEntity);
             await context.SaveChangesAsync();
             return true;
         }

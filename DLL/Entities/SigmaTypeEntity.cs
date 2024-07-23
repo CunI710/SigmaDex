@@ -9,6 +9,7 @@ namespace DataAccess.Entities {
         public int Id { get; set; }
         public required string Name { get; set; }
         public required string Desription { get; set; }
-        public List<SigmaEntity>? Sigmas { get; set; }
+        public List<SigmaEntity>? SigmaTypes { get; set; }
+        public List<SigmaEntity>? SigmaWeaknesses { get; set; }
     }
 }

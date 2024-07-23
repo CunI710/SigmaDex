@@ -17,8 +17,12 @@ namespace Core.Models.BaseModels
         public int Testosterone { get; set; }
         public int EvolutionLevel { get; set; }
         public required List<SigmaType> Types { get; set; }
+        public required List<int> TypeIds { get; set; }
         public List<SigmaType>? Weaknesses { get; set; }
+        public List<int>? WeaknesseIds { get; set; }
         public Sigma? NextStep { get; set; }
+        public int? NextStepId { get; set; }
         public Sigma? PrevStep { get; set; }
+        public int? PrevStepId { get; set; }
     }
 }
