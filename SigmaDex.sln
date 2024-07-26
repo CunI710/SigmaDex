@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigmaDex", "SigmaDex\SigmaDex.csproj", "{E459F662-D2FA-475A-A8C2-47F7E8679E11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigmaDex", "SigmaDex\SigmaDex.csproj", "{E459F662-D2FA-475A-A8C2-47F7E8679E11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DLL\DataAccess.csproj", "{D531960B-6D79-4DE7-B1F4-DB2E3F678157}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DLL\DataAccess.csproj", "{D531960B-6D79-4DE7-B1F4-DB2E3F678157}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "BLL\Application.csproj", "{A9D352E8-FBAE-4377-AC1E-4E3CA72AEA28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "BLL\Application.csproj", "{A9D352E8-FBAE-4377-AC1E-4E3CA72AEA28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{59C8FD78-6E4F-4F85-898F-FBE338897815}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{59C8FD78-6E4F-4F85-898F-FBE338897815}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "sigmadex.client", "SigmaDex.client\sigmadex.client.esproj", "{CBFABFA8-C062-4F81-A746-98FFDCB9B015}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{59C8FD78-6E4F-4F85-898F-FBE338897815}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59C8FD78-6E4F-4F85-898F-FBE338897815}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59C8FD78-6E4F-4F85-898F-FBE338897815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBFABFA8-C062-4F81-A746-98FFDCB9B015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBFABFA8-C062-4F81-A746-98FFDCB9B015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBFABFA8-C062-4F81-A746-98FFDCB9B015}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CBFABFA8-C062-4F81-A746-98FFDCB9B015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBFABFA8-C062-4F81-A746-98FFDCB9B015}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBFABFA8-C062-4F81-A746-98FFDCB9B015}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
