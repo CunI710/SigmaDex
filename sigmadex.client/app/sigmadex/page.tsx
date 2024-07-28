@@ -17,6 +17,7 @@ export default function SigmadexPage() {
         .catch(error =>{
             console.log(error);
         })
+        console.log("ahsd")
     },[]);
 
     return (
