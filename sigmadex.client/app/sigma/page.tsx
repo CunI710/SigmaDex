@@ -1,11 +1,11 @@
-"use client";
 
 import { useEffect, useState } from "react";
 import { SigmaExamples } from "../components/sigmaExample";
+import { getAllSigmaExamples } from "../services/sigma";
 import axios from "axios";
 
-
-export default function SigmadexPage() {
+    
+export default function SigmadexPage(sigmaId:number) {
 
     const [sigmas,setSigmas]= useState<SigmaExample[]>([]);
 
@@ -23,5 +23,5 @@ export default function SigmadexPage() {
         <div>
             <SigmaExamples sigmaExaples={sigmas}/>
         </div>
-    )   
+    )
 }
