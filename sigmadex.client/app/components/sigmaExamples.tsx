@@ -19,12 +19,12 @@ export const SigmaExamples = ({ sigmaExaples }: Props) => {
                             className="hover:scale-105 "
                             cover={<img className="h-40" alt="example" src="https://avatars.mds.yandex.net/get-shedevrum/11465050/original_b07a57a5bed111ee978dd659965eed18/orig"></img>}
                         >
-                            <div>
+                            <div className="grid grid-cols-2">
                                 {sigma.types.map((type: string) => (
                                     <Tag
                                         key={type}
                                         color="red"
-                                        className="p-1"
+                                        className="p-1 text-center border-0 rounded-xl"
                                     >
                                         {type}
                                     </Tag>

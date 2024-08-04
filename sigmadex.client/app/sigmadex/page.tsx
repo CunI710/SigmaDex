@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SigmaExamples } from "../components/sigmaExample";
+import { SigmaExamples } from "../components/sigmaExamples";
 import axios from "axios";
 
 
@@ -17,7 +17,6 @@ export default function SigmadexPage() {
         .catch(error =>{
             console.log(error);
         })
-        console.log("ahsd")
     },[]);
 
     return (
