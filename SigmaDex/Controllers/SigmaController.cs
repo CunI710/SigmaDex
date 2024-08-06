@@ -34,9 +34,12 @@ public class SigmaController : ControllerBase {
     public async Task<ActionResult> Create(SigmaCreateRequest request) {
         return Ok(await service.CreateSigma(request));
     }
-
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> Delete(int id) {
         return Ok(await service.DeleteSigma(id));
+    }
+    [HttpPut]
+    public async Task<ActionResult> Edit(SigmaUpdateRequest request) {
+        return Ok(await service.EditSigma(request));
     }
 }

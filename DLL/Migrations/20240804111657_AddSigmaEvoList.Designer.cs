@@ -3,6 +3,7 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(SigmaDbContext))]
-    partial class SigmaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240804111657_AddSigmaEvoList")]
+    partial class AddSigmaEvoList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,6 +62,9 @@ namespace DataAccess.Migrations
                     b.Property<int?>("PrevStepId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("SigmaEntityId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Testosterone")
                         .HasColumnType("integer");
 
@@ -67,7 +73,10 @@ namespace DataAccess.Migrations
                     b.HasIndex("NextStepId")
                         .IsUnique();
 
-                    b.HasIndex("PrevStepId");
+                    b.HasIndex("PrevStepId")
+                        .IsUnique();
+
+                    b.HasIndex("SigmaEntityId");
 
                     b.ToTable("Sigmas");
                 });
@@ -91,21 +100,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SigmaTypes");
-                });
-
-            modelBuilder.Entity("SigmaEntitySigmaEntity", b =>
-                {
-                    b.Property<int>("AllEvolutionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SigmaEntityId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("AllEvolutionId", "SigmaEntityId");
-
-                    b.HasIndex("SigmaEntityId");
-
-                    b.ToTable("SigmaEntitySigmaEntity");
                 });
 
             modelBuilder.Entity("SigmaEntitySigmaTypeEntity", b =>
@@ -142,32 +136,19 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("DataAccess.Entities.SigmaEntity", "NextStep")
                         .WithOne()
-                        .HasForeignKey("DataAccess.Entities.SigmaEntity", "NextStepId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("DataAccess.Entities.SigmaEntity", "NextStepId");
 
                     b.HasOne("DataAccess.Entities.SigmaEntity", "PrevStep")
-                        .WithMany()
-                        .HasForeignKey("PrevStepId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .WithOne()
+                        .HasForeignKey("DataAccess.Entities.SigmaEntity", "PrevStepId");
+
+                    b.HasOne("DataAccess.Entities.SigmaEntity", null)
+                        .WithMany("AllEvolution")
+                        .HasForeignKey("SigmaEntityId");
 
                     b.Navigation("NextStep");
 
                     b.Navigation("PrevStep");
-                });
-
-            modelBuilder.Entity("SigmaEntitySigmaEntity", b =>
-                {
-                    b.HasOne("DataAccess.Entities.SigmaEntity", null)
-                        .WithMany()
-                        .HasForeignKey("AllEvolutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataAccess.Entities.SigmaEntity", null)
-                        .WithMany()
-                        .HasForeignKey("SigmaEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SigmaEntitySigmaTypeEntity", b =>
@@ -198,6 +179,11 @@ namespace DataAccess.Migrations
                         .HasForeignKey("WeaknessesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAccess.Entities.SigmaEntity", b =>
+                {
+                    b.Navigation("AllEvolution");
                 });
 #pragma warning restore 612, 618
         }

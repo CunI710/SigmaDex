@@ -1,4 +1,5 @@
-﻿using Core.Models.Query.Requests.Sigma;
+﻿using Core.Models.BaseModels;
+using Core.Models.Query.Requests.Sigma;
 using Core.Models.Query.Responses.Sigma;
 
 namespace Core.Abstractions.Services {

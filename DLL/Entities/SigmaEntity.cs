@@ -18,5 +18,6 @@ namespace DataAccess.Entities {
         public List<SigmaTypeEntity>? Weaknesses { get; set; }
         public SigmaEntity? NextStep { get; set; }
         public SigmaEntity? PrevStep { get; set; }
+        public List<SigmaEntity>? AllEvolution { get; set; }
     }
 }

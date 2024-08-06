@@ -3,6 +3,7 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(SigmaDbContext))]
-    partial class SigmaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240804113501_UpdateSigmaEvoListRelation")]
+    partial class UpdateSigmaEvoListRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,7 +70,8 @@ namespace DataAccess.Migrations
                     b.HasIndex("NextStepId")
                         .IsUnique();
 
-                    b.HasIndex("PrevStepId");
+                    b.HasIndex("PrevStepId")
+                        .IsUnique();
 
                     b.ToTable("Sigmas");
                 });
@@ -142,13 +146,11 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("DataAccess.Entities.SigmaEntity", "NextStep")
                         .WithOne()
-                        .HasForeignKey("DataAccess.Entities.SigmaEntity", "NextStepId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("DataAccess.Entities.SigmaEntity", "NextStepId");
 
                     b.HasOne("DataAccess.Entities.SigmaEntity", "PrevStep")
-                        .WithMany()
-                        .HasForeignKey("PrevStepId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .WithOne()
+                        .HasForeignKey("DataAccess.Entities.SigmaEntity", "PrevStepId");
 
                     b.Navigation("NextStep");
 

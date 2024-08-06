@@ -18,5 +18,6 @@ namespace Core.Models.Query.Responses.Sigma {
         public List<SigmaTypeExampleResponse>? Weaknesses { get; set; }
         public SigmaExampleResponse? NextStep { get; set; }
         public SigmaExampleResponse? PrevStep { get; set; }
+        public List<SigmaExampleResponse>? AllEvolution {get; set;}
     }
 }

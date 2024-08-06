@@ -9,5 +9,6 @@ namespace Core.Abstractions.Repositories
         Task<List<Sigma>> GetAll();
         Task<List<Sigma>> GetAllByIds(List<int> ids);
         Task<Sigma> GetById(int id);
+        Task<bool> Update(Sigma sigma);
     }
 }

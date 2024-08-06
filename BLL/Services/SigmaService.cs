@@ -51,8 +51,8 @@ public class SigmaService : ISigmaService {
         return await repos.Create(sigma);
     }
     public async Task<bool> EditSigma(SigmaUpdateRequest request) {
-        var sigma = await repos.GetById(1);
-        return true;
+        var sigma = mapper.Map<Sigma>(request);
+        return await repos.Update(sigma);
     }
 
 }

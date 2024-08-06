@@ -26,10 +26,15 @@ namespace DataAccess {
                 .WithMany(t => t.SigmaWeaknesses);
             modelBuilder.Entity<SigmaEntity>()
                 .HasOne(s => s.PrevStep)
-                .WithOne();
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
             modelBuilder.Entity<SigmaEntity>()
                 .HasOne(s => s.NextStep)
-                .WithOne();
+                .WithOne()
+                .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<SigmaEntity>()
+                .HasMany(s => s.AllEvolution)
+                .WithMany();
         }
 
     }
