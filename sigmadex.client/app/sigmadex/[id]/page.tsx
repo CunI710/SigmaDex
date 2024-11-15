@@ -1,7 +1,7 @@
 'use client';
 import { SigmaCharacteristics } from '@/app/components/sigmaCharacteristic';
 import { SigmaExamples } from '@/app/components/sigmaExamples';
-import { TypeExamples } from '@/app/components/typeExample';
+import { TypeExamples } from '@/app/components/typeExamples';
 import { Image } from 'antd';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -71,8 +71,8 @@ export default function DynamicPage({ params }: { params: { id: number } }) {
             </div>
           </div>
         </div>
-        <div>
-          <p>Evolutions</p>
+        <div className='grid justify-center'>
+          <SigmaExamples sigmaExaples={sigma?.allEvolution ?? []}/>
           <p>{sigmaExample?.imageUrl}</p>
         </div>
       </div>

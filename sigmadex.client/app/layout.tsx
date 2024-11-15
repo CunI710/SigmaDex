@@ -5,7 +5,8 @@ import Link from "next/link";
 
 const items = [
   { key: "home", label: <Link href={"/"}>Home</Link> },
-  { key: "sigmadex", label: <Link href={"/sigmadex"}>Sigmadex</Link> }
+  { key: "sigmadex", label: <Link href={"/sigmadex"}>Sigmadex</Link> },
+  { key: "login", label: <Link href={"/login"} className="grid justify-end">Log in</Link>, style:{marginLeft:"auto"} }
 ]
 
 export default function RootLayout({
@@ -25,7 +26,7 @@ export default function RootLayout({
             />
           </Header>
           <Content>{children}</Content>
-          <Footer className="text-center"> Hellloo Wooorldasd</Footer>
+          <Footer className="text-center bg-zinc-900 text-white"> hello world</Footer>
         </Layout>
       </body>
     </html>

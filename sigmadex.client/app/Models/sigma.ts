@@ -11,4 +11,5 @@ interface Sigma{
     weaknesses:TypeExample[];
     nextStep:number;
     prevStep:number;
+    allEvolution: SigmaExample[];
 }
