@@ -11,7 +11,7 @@ namespace DataAccess {
         public DbSet<SigmaEntity> Sigmas { get; set; }
         public DbSet<SigmaTypeEntity> SigmaTypes { get; set; }
         public SigmaDbContext(DbContextOptions<SigmaDbContext> options):base(options) {
-
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
