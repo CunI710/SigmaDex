@@ -17,7 +17,9 @@ namespace DataAccess.Repositories
         }
 
         public async Task<SigmaType> GetById(int id) {
-            var sigmaTypeEntity = await context.SigmaTypes.FirstOrDefaultAsync(t => t.Id == id);
+            var sigmaTypeEntity = await context.SigmaTypes
+                .Include(t=>t.SigmaTypes)
+                .FirstOrDefaultAsync(t => t.Id == id);
             var sigmaType = mapper.Map<SigmaType>(sigmaTypeEntity);
             return sigmaType;
         }
@@ -27,7 +29,9 @@ namespace DataAccess.Repositories
             return sigmaType;
         }
         public async Task<List<SigmaType>> Get() {
-            var sigmaTypeEntities = await context.SigmaTypes.ToListAsync();
+            var sigmaTypeEntities = await context.SigmaTypes
+                .Include(t=>t.SigmaTypes)
+                .ToListAsync();
             var sigmaTypes = mapper.Map<List<SigmaType>>(sigmaTypeEntities);
             return sigmaTypes;
         }

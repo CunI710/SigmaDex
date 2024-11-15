@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace DataAccess {
     public class SigmaDbContext : DbContext{
-        public DbSet<SigmaEntity> Sigmas { get; set; }
-        public DbSet<SigmaTypeEntity> SigmaTypes { get; set; }
+        public DbSet<SigmaEntity> Sigmas { get; set; } = null!;
+        public DbSet<SigmaTypeEntity> SigmaTypes { get; set; } = null!;
         public SigmaDbContext(DbContextOptions<SigmaDbContext> options):base(options) {
             Database.EnsureCreated();
         }

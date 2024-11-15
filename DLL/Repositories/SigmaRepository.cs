@@ -25,7 +25,8 @@ public class SigmaRepository : ISigmaRepository
             .Include(s => s.Weaknesses)
             .Include(s => s.NextStep)
             .Include(s => s.PrevStep)
-            .Include(s => s.AllEvolution)
+            .Include(s => s.AllEvolution!)
+            .ThenInclude(s=>s.Types)
             .FirstOrDefaultAsync(s => s.Id == id);
         var sigma = mapper.Map<Sigma>(sigmaEntity);
         return sigma;
