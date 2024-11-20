@@ -25,7 +25,8 @@ namespace SigmaDex.Profiles {
             CreateMap<SigmaType, SigmaTypeExampleResponse>();
             CreateMap<SigmaType, SigmaTypeInfoResponse>();
 
-            CreateMap<SigmaTypeEntity, SigmaType>();
+            CreateMap<SigmaTypeEntity, SigmaType>()
+                .ForMember(t=>t.Sigmas,o=>o.MapFrom(s=>s.SigmaTypes));
             CreateMap<SigmaType, SigmaTypeEntity>();
 
         }

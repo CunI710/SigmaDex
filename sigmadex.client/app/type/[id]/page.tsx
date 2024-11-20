@@ -17,12 +17,12 @@ export default function TypePage({ params }: { params: { id: number } }) {
     axios.get(`http://localhost:5016/api/sigmatype/${id}`)
       .then(response => {
         setType(response.data);
+        setSigmas(response.data.sigmas)
       })
       .catch(error => {
         console.log(error);
       })
-      setSigmas(type?.sigmas??[])
-  }, []);
+    }, []);
 
 
   return (
