@@ -1,40 +1,32 @@
-﻿using DataAccess.Entities;
+﻿using DataAccess.Configurations;
+using DataAccess.Entities;
+using DataAccess.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess {
-    public class SigmaDbContext : DbContext{
+namespace DataAccess
+{
+    public class SigmaDbContext(
+        IOptions<AuthorizationOptions> authOptions,
+        DbContextOptions<SigmaDbContext> options) : DbContext(options)
+    {
         public DbSet<SigmaEntity> Sigmas { get; set; } = null!;
         public DbSet<SigmaTypeEntity> SigmaTypes { get; set; } = null!;
-        public SigmaDbContext(DbContextOptions<SigmaDbContext> options):base(options) {
-            Database.EnsureCreated();
-        }
+        public DbSet<UserEntity> Users { get; set; } = null!;
+        public DbSet<RoleEntity> Roles { get; set; } = null!;
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(SigmaDbContext).Assembly);
+            modelBuilder.ApplyConfiguration(new RolePermissionConfiguration(authOptions.Value));
 
             // Настройка отношения один-ко-многим
-            modelBuilder.Entity<SigmaEntity>()
-                .HasMany(s => s.Types)
-                .WithMany(t => t.SigmaTypes);
-            modelBuilder.Entity<SigmaEntity>()
-                .HasMany(s => s.Weaknesses)
-                .WithMany(t => t.SigmaWeaknesses);
-            modelBuilder.Entity<SigmaEntity>()
-                .HasOne(s => s.PrevStep)
-                .WithMany()
-                .OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<SigmaEntity>()
-                .HasOne(s => s.NextStep)
-                .WithOne()
-                .OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<SigmaEntity>()
-                .HasMany(s => s.AllEvolution)
-                .WithMany();
         }
 
     }

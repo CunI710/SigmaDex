@@ -5,6 +5,9 @@ using DataAccess.Repositories;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using SigmaDex.Profiles;
+using System.Net;
+using DataAccess.Options;
+using BLL.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +26,9 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
+builder.Services.Configure<AuthorizationOptions>(builder.Configuration.GetSection(nameof(AuthorizationOptions)));
 
 var app = builder.Build();
 
