@@ -19,8 +19,11 @@ builder.Services.AddCors();
 builder.Services.AddDbContext<SigmaDbContext>(options=>options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<ISigmaRepository, SigmaRepository>();
 builder.Services.AddScoped<ISigmaTypeRepository, SigmaTypeRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISigmaService, SigmaService>();
 builder.Services.AddScoped<ISigmaTypeService, SigmaTypeService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
