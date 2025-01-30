@@ -8,6 +8,12 @@ using SigmaDex.Profiles;
 using System.Net;
 using DataAccess.Options;
 using BLL.Options;
+using Application.Authorization;
+using Core.Enums.OptionEnums;
+using Microsoft.AspNetCore.Authorization;
+using SigmaDex.Extentions;
+using Microsoft.OpenApi.Models;
+using Application.Providers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,16 +29,46 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISigmaService, SigmaService>();
 builder.Services.AddScoped<ISigmaTypeService, SigmaTypeService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPermissionService, PermissionService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
+
+builder.Services.AddScoped<JwtProvider>();
+
+builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddEndpointsApiExplorer(); 
+builder.Services.AddSwaggerGen(options => {
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Token"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
-builder.Services.Configure<AuthorizationOptions>(builder.Configuration.GetSection(nameof(AuthorizationOptions)));
+builder.Services.Configure<DataAccess.Options.AuthorizationOptions>(builder.Configuration.GetSection(nameof(DataAccess.Options.AuthorizationOptions)));
 
+builder.Services.AddApiAuthentication(builder.Configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,8 +80,10 @@ if (app.Environment.IsDevelopment()) {
 
 app.UseHttpsRedirection();
 
+
 app.UseCors(builder => builder.AllowAnyOrigin());
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

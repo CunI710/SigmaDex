@@ -1,4 +1,5 @@
-﻿using Core.Models.BaseModels;
+﻿using Core.Enums.OptionEnums;
+using Core.Models.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace Core.Abstractions.Repositories {
         public Task<bool> Create(User user);
         public Task<bool> Update(User user);
         public Task<bool> Delete(int id);
+        Task<HashSet<Permission>> GetUserPermissions(int id);
     }
 }

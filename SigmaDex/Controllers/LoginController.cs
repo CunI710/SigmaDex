@@ -14,21 +14,21 @@ public class LoginController : ControllerBase {
 
     [HttpPost("login")]
     public async Task<ActionResult> Login(UserLoginRequest request) {
-        (bool response, string error) = await service.Login(request);
+        (bool response, string message) = await service.Login(request);
 
         if (response)
-            return Ok();
-        return BadRequest(error);
+            return Ok(message);
+        return BadRequest(message);
     }
 
     [HttpPost]
     [Route("api/register")]
     public async Task<ActionResult> Register(UserRegisterRequest request) {
-        (bool response, string error) = await service.Register(request);
+        (bool response, string message) = await service.Register(request);
 
         if (response)
             return Ok();
-        return BadRequest(error);
+        return BadRequest(message);
     }
 
 

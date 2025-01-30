@@ -1,4 +1,5 @@
 ﻿using Application.Helpers;
+using Application.Providers;
 using AutoMapper;
 using Core.Abstractions.Repositories;
 using Core.Abstractions.Services;
@@ -14,10 +15,12 @@ namespace Application.Services {
     public class LoginService : ILoginService {
         private readonly IUserRepository repos;
         private readonly IMapper mapper;
+        private readonly JwtProvider jwtProvider;
 
-        public LoginService(IUserRepository repos, IMapper mapper) {
+        public LoginService(IUserRepository repos, IMapper mapper, JwtProvider jwtProvider) {
             this.repos = repos;
             this.mapper = mapper;
+            this.jwtProvider = jwtProvider;
         }
         public async Task<(bool, string)> Login(UserLoginRequest request) {
 
@@ -25,7 +28,8 @@ namespace Application.Services {
             if (user == null)
                 return (false, "Пользователя с таким email не существует");
             if (HashHelper.Check(request.Password, user.PasswordHash)){
-                return (true, null!);
+                string jwt = jwtProvider.GenerateToken(user);
+                return (true, jwt);
             }
             return (false, "Пароль не совпадает");
         }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Abstractions.Repositories;
+using Core.Enums.OptionEnums;
 using Core.Models.BaseModels;
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -65,21 +66,38 @@ public class UserRepository : IUserRepository {
 
     }
 
-    public async Task<bool> Update(User user) {
+    public async Task<bool> Update(User user)
+    {
         var userEntity = await context.Users
-            .Include(u=>u.Roles)
+            .Include(u => u.Roles)
             .FirstOrDefaultAsync(u => u.Id == user.Id);
-        
-        if (userEntity == null) 
+
+        if (userEntity == null)
             return false;
-        
+
         userEntity.Name = user.Name ?? userEntity.Name;
         userEntity.Email = user.Email ?? userEntity.Email;
         userEntity.PasswordHash = user.PasswordHash ?? userEntity.PasswordHash;
-        
+
         if (user.Roles != null && user.Roles.Length != 0)
-            userEntity.Roles = context.Roles.Where(r=>user.Roles.Contains(r.Name)).ToList();
+            userEntity.Roles = context.Roles.Where(r => user.Roles.Contains(r.Name)).ToList();
         await context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<HashSet<Permission>> GetUserPermissions(int id)
+    {
+        var roles = await context.Users
+            .AsNoTracking().Include(u => u.Roles)
+            .ThenInclude(r => r.Permissions)
+            .Where(r => r.Id == id)
+            .Select(u => u.Roles)
+            .ToListAsync();
+
+        return roles
+            .SelectMany(r => r)
+            .SelectMany(r => r.Permissions)
+            .Select(p => (Permission)p.Id)
+            .ToHashSet();
     }
 }
