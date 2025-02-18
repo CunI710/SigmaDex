@@ -22,7 +22,7 @@ public class LoginController : ControllerBase {
     }
 
     [HttpPost]
-    [Route("api/register")]
+    [Route("register")]
     public async Task<ActionResult> Register(UserRegisterRequest request) {
         (bool response, string message) = await service.Register(request);
 

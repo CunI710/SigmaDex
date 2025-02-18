@@ -41,7 +41,7 @@ export default function DynamicPage({ params }: { params: { id: number } }) {
 
   return (
     <div className='p-20'>
-      <div className='bg-white rounded-2xl p-5'>
+      <div className='bg-gradient-to-t from-green-50 to-blue-100 rounded-2xl p-5'>
         <h1 className='text-center text-3xl'>{sigma?.name}</h1>
         <div className='flex p-5 gap-8'>
 

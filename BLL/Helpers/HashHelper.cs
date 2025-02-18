@@ -14,7 +14,7 @@ namespace Application.Helpers {
             byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
             byte[] hashedBytes = sHA256.ComputeHash(passwordBytes);
 
-            return Encoding.UTF8.GetString(hashedBytes);
+            return BitConverter.ToString(hashedBytes).Replace("-","").ToLower();
         }
         public static bool Check(string password, string passwordHash) {
              return Generate(password) == passwordHash;
